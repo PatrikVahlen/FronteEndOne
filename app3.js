@@ -34,6 +34,8 @@ function renderArticleItem(articleItem, rating) {
     articleItemElement.append(stockElement)
     articleItemElement.append(buttonBuyElement)
 
+    //TEST
+
     buttonBuyElement.addEventListener("click", event => {
         const sumPricingElement = document.getElementById("total")
         const articleItemPrice = document.getElementById("header")
