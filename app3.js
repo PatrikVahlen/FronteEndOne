@@ -8,6 +8,7 @@ let rating = 0
 function renderArticleItem(articleItem, rating) {
 
     const articleItemElement = document.createElement("div")
+
     const titleElement = document.createElement("h2")
     const descriptionElement = document.createElement("p")
     const pricingElement = document.createElement("p")
@@ -23,16 +24,15 @@ function renderArticleItem(articleItem, rating) {
     stockElement.innerText = `Stock: ${articleItem.stock}`
     imageElement.src = articleItem.images[0].src.small
     imageElement.alt = articleItem.images[0].alt
-    imageElement.id = articleItem.id
     buttonBuyElement.innerText = "Köp"
 
-    articleItemElement.appendChild(titleElement)
-    articleItemElement.appendChild(imageElement)
-    articleItemElement.appendChild(descriptionElement)
-    articleItemElement.appendChild(pricingElement)
-    articleItemElement.appendChild(ratingElement)
-    articleItemElement.appendChild(stockElement)
-    articleItemElement.appendChild(buttonBuyElement)
+    articleItemElement.append(titleElement)
+    articleItemElement.append(imageElement)
+    articleItemElement.append(descriptionElement)
+    articleItemElement.append(pricingElement)
+    articleItemElement.append(ratingElement)
+    articleItemElement.append(stockElement)
+    articleItemElement.append(buttonBuyElement)
 
     buttonBuyElement.addEventListener("click", event => {
         const sumPricingElement = document.getElementById("total")
@@ -43,33 +43,28 @@ function renderArticleItem(articleItem, rating) {
         articleObject.innerText = `${articleItem.name} - ${articleItem.price}`
         articleItemPrice.prepend(articleObject)
     })
-    if (articleItem.rating >= rating) {
 
-        articleListElement.appendChild(articleItemElement)
+    if (articleItem.rating >= rating) {
+        articleListElement.append(articleItemElement)
     }
 }
 
-function renderArticleChangeList(articleList, rating) {
+function renderArticleList(articleList) {
+    articleList.forEach(articleItem => {
+        renderArticleItem(articleItem, rating)
+    })
+
     buttonFilterElement.addEventListener("click", event => {
         articleListElement.innerHTML = ""
         const userInput = document.getElementById("input").value
-        rating = userInput
-        console.log(rating)
         articleList.forEach(articleItem => {
-            renderArticleItem(articleItem, rating)
+            renderArticleItem(articleItem, userInput)
         })
-    })
-}
-
-function renderArticleList(articleList, rating) {
-    articleList.forEach(articleItem => {
-        renderArticleItem(articleItem, rating)
     })
 }
 
 fetch(url)
     .then(response => response.json())
     .then(data => {
-        renderArticleList(data, rating)
-        renderArticleChangeList(data, rating)
+        renderArticleList(data)
     })
