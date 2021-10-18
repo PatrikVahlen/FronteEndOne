@@ -10,20 +10,25 @@ function renderArticleItem(articleItem, rating) {
     const articleItemElement = document.createElement("div")
 
     const titleElement = document.createElement("h2")
-    const descriptionElement = document.createElement("p")
-    const pricingElement = document.createElement("p")
-    const ratingElement = document.createElement("p")
-    const stockElement = document.createElement("p")
-    const imageElement = document.createElement("img")
-    const buttonBuyElement = document.createElement("button")
-
     titleElement.innerText = articleItem.name
+
+    const descriptionElement = document.createElement("p")
     descriptionElement.innerText = articleItem.description
+
+    const pricingElement = document.createElement("p")
     pricingElement.innerText = `Price: ${articleItem.price}`
+
+    const ratingElement = document.createElement("p")
     ratingElement.innerText = `Rating: ${articleItem.rating}`
+
+    const stockElement = document.createElement("p")
     stockElement.innerText = `Stock: ${articleItem.stock}`
+
+    const imageElement = document.createElement("img")
     imageElement.src = articleItem.images[0].src.small
     imageElement.alt = articleItem.images[0].alt
+
+    const buttonBuyElement = document.createElement("button")
     buttonBuyElement.innerText = "Köp"
 
     articleItemElement.append(titleElement)
@@ -34,13 +39,11 @@ function renderArticleItem(articleItem, rating) {
     articleItemElement.append(stockElement)
     articleItemElement.append(buttonBuyElement)
 
-    //TEST
-
     buttonBuyElement.addEventListener("click", event => {
         const sumPricingElement = document.getElementById("total")
-        const articleItemPrice = document.getElementById("header")
+        const articleItemPrice = document.getElementById("shoppingList")
         const articleObject = document.createElement("p")
-        sum = sum + parseInt(articleItem.price)
+        sum += parseInt(articleItem.price)
         sumPricingElement.innerText = `Total: ${sum} kr`;
         articleObject.innerText = `${articleItem.name} - ${articleItem.price}`
         articleItemPrice.prepend(articleObject)
