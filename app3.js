@@ -11,7 +11,7 @@ function renderArticleItem(articleItem, rating) { //renderar våra object
     const articleItemElement = document.createElement("div")
 
     const titleElement = document.createElement("h2") //Skapa en H2
-    titleElement.innerText = articleItem.name          //Hämtar name och sätter vår H2
+    titleElement.innerText = articleItem.name          //Hämtar name och sätter titel till vår H2
 
     const descriptionElement = document.createElement("p")
     descriptionElement.innerText = articleItem.description  //Sätter description
