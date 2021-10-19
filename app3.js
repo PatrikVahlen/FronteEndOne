@@ -4,15 +4,10 @@ const buttonFilterElement = document.getElementById("buttonFilter") //Identifier
 
 let sum = 0 //Vår summa vi handlat för
 let rating = 0 //Vår rating, från början 0 så allt ska synas
-let iteration = 0
 
 
 function renderArticleItem(articleItem, rating) { //renderar våra object
-
-    console.log(articleItem)
-    //console.log(articleItem.images)
-    //console.log(articleItem.rating)
-
+    console.log(rating)
     const articleItemElement = document.createElement("div")
 
     const titleElement = document.createElement("h2") //Skapa en H2
@@ -51,18 +46,20 @@ function renderArticleItem(articleItem, rating) { //renderar våra object
         const articleObject = document.createElement("p") //skapar en p-tagg där vi skriver in vad vi handlat
         sum += parseInt(articleItem.price) //uppdaterar summan vi handlat för, gör om input-sträng till integer
         sumPricingElement.innerText = `Total: ${sum} kr`; //Uppdaterar summan vi handlat för 
-        articleObject.innerText = `${articleItem.name} - ${articleItem.price}`//Uppdaterar vår varukorg, vad vi precis klickat på /handlat
+        articleObject.innerText = `${articleItem.name} - ${articleItem.price} kr`//Uppdaterar vår varukorg, vad vi precis klickat på /handlat
         articleItemPrice.prepend(articleObject) //prependa det vi precis handlat till vår div
     })
 
-    if (articleItem.rating >= rating || articleItem.rating === undefined) { //Skriver ut alla object som är större än vår rating och som inte har en rating
+    if (articleItem.rating >= rating) { //Skriver de som är större än vår rating 
         articleListElement.append(articleItemElement) //Appendar vår div till diven i DOM:en
     }
+    if (articleItem.rating === undefined && rating == 0) { //Skriver ut de som är undefined om rating = 0
+        articleListElement.append(articleItemElement)
+    }
+
 }
 
 function renderArticleList(articleList) {
-
-    //console.log(articleList)
 
     articleList.forEach(articleItem => { //tar emot array och skickar vardera object till ny funktion
         renderArticleItem(articleItem, rating)
@@ -70,7 +67,7 @@ function renderArticleList(articleList) {
 
     buttonFilterElement.addEventListener("click", event => { //Lyssnar om vi trycker på vår filterknapp
         articleListElement.innerHTML = "" //nollställ våra divar som vi genererat
-        const userInput = document.getElementById("input").value //Vår rating vi skrivit i input-fältet
+        let userInput = document.getElementById("input").value //Vår rating vi skrivit i input-fältet
         articleList.forEach(articleItem => {
             renderArticleItem(articleItem, userInput)
         })
